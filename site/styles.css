@@ -1,0 +1,322 @@
+:root{
+  color-scheme: dark;
+  --bg:#04070f;
+  --panel:#101930;
+  --accent:#4fd897;
+  --accent-2:#48a8ff;
+  --text:#e8f0ff;
+  --muted:#9bb0d9;
+  --line:#1f3157;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  font-family:'Exo 2','Segoe UI',ui-sans-serif,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+h1,h2,h3{font-family:'Cinzel','Exo 2',serif}
+
+/* Navbar */
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 24px;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+}
+.navbar-brand{display:flex;align-items:center;gap:10px}
+.navbar-logo{font-size:1.5rem}
+.navbar-title{font-family:'Cinzel',serif;font-size:1.2rem;color:var(--accent);font-weight:700}
+.navbar-links{display:flex;gap:16px}
+.navbar-link{color:var(--accent-2);text-decoration:none;font-size:.9rem}
+.navbar-link:hover{text-decoration:underline}
+
+/* Main container */
+#app{
+  width:min(960px,94vw);
+  margin:32px auto 48px;
+}
+
+/* Loading & error */
+.loading{text-align:center;padding:48px 0;color:var(--muted);font-size:1.1rem}
+.error-box{
+  background:rgba(255,60,60,.12);
+  border:1px solid rgba(255,60,60,.4);
+  border-radius:10px;
+  padding:20px;
+  color:#ff8888;
+  text-align:center;
+}
+
+/* Landing page */
+.landing{text-align:center;padding:80px 0}
+.landing h1{font-size:2rem;color:var(--accent);margin-bottom:12px}
+.landing p{color:var(--muted);font-size:1.05rem}
+
+/* Build header */
+.build-header{margin-bottom:24px}
+.build-header h1{font-size:1.8rem;margin-bottom:6px}
+.build-meta{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+.tag-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag-pill{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:.78rem;
+  color:var(--accent-2);
+}
+
+/* Tabs */
+.tab-bar{display:flex;gap:4px;margin-bottom:20px;border-bottom:2px solid var(--line)}
+.tab{
+  background:none;
+  border:none;
+  color:var(--muted);
+  font-family:'Exo 2',sans-serif;
+  font-size:.9rem;
+  font-weight:600;
+  padding:10px 20px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  transition:color .15s,border-color .15s;
+}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Spec row */
+.spec-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px 14px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  margin-bottom:8px;
+}
+.spec-row .spec-name{font-weight:600;font-size:1rem}
+.spec-row .spec-traits{color:var(--muted);font-size:.85rem}
+
+/* Trait grid */
+.trait-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:8px;
+  margin-top:8px;
+}
+
+/* Skill bar */
+.skill-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.skill-bar .skill-slot{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:.85rem;
+}
+.skill-bar .skill-slot img{
+  width:32px;height:32px;
+  border-radius:6px;
+  border:1px solid var(--line);
+  background:#0a1020;
+}
+
+/* Equipment panel */
+.equipment-panel{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.equipment-panel .equip-field{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+}
+.equipment-panel .equip-label{color:var(--accent-2);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.equipment-panel .equip-value{font-size:.95rem}
+
+/* Spec icon */
+.spec-icon{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);object-fit:cover}
+.spec-info{display:flex;flex-direction:column;gap:4px;flex:1}
+.elite-badge{color:var(--accent);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-left:6px}
+
+/* Trait grid */
+.trait-grid{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  margin-top:6px;
+  flex-wrap:wrap;
+}
+.tier-group{display:flex;gap:4px;align-items:center}
+.tier-sep{width:1px;height:24px;background:var(--line);margin:0 4px}
+.trait-icon{
+  width:24px;height:24px;
+  border-radius:50%;
+  border:2px solid var(--line);
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity:.5;
+}
+.trait-icon--selected{border-color:var(--accent);opacity:1}
+.trait-img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.minorTrait{
+  width:20px;height:20px;
+  border-radius:50%;
+  border:2px solid var(--accent-2);
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-right:2px;
+}
+.minorTrait img{width:20px;height:20px;border-radius:50%;object-fit:cover}
+
+/* Skill separator & icon */
+.skill-sep{width:2px;height:36px;background:var(--line);margin:0 4px;align-self:center}
+.skill-icon{width:36px;height:36px;border-radius:6px;border:1px solid var(--line);background:#0a1020;cursor:pointer}
+
+/* Underwater section */
+.uw-section{margin-top:12px;padding-top:8px;border-top:1px solid var(--line)}
+.uw-section .section-heading{margin-top:8px}
+
+/* Mechanic section */
+.mechanic-section{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-top:8px;
+  padding:6px 10px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  font-size:.85rem;
+  color:var(--muted);
+}
+
+/* Equipment panel (two-column) */
+.eq-panel{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:12px;
+}
+@media(max-width:640px){.eq-panel{grid-template-columns:1fr}}
+.eq-col{display:flex;flex-direction:column;gap:8px}
+.eq-card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px 14px;
+}
+.eq-label{color:var(--accent-2);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.eq-value{font-size:.95rem}
+.eq-slot{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:4px 0;
+  border-bottom:1px solid var(--line);
+  font-size:.85rem;
+}
+.eq-slot:last-child{border-bottom:none}
+.eq-slot-name{font-weight:600;min-width:80px;text-transform:capitalize}
+.eq-slot-stat{color:var(--muted);flex:1}
+.eq-slot-rune{color:var(--accent);font-size:.8rem}
+.eq-weapon-row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px solid var(--line);
+  font-size:.85rem;
+}
+.eq-weapon-row:last-child{border-bottom:none}
+.eq-sigils{display:flex;gap:6px;flex-wrap:wrap}
+.eq-sigil{
+  background:rgba(72,168,255,.1);
+  border:1px solid rgba(72,168,255,.3);
+  border-radius:6px;
+  padding:2px 8px;
+  font-size:.78rem;
+  color:var(--accent-2);
+}
+
+/* Tooltip */
+.tooltip{
+  position:absolute;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 12px;
+  font-size:.82rem;
+  pointer-events:none;
+  z-index:100;
+  max-width:280px;
+  display:none;
+}
+.tooltip.visible{display:block}
+.tooltip__name{font-weight:700;color:var(--accent);margin-bottom:4px}
+.tooltip__desc{color:var(--muted);font-size:.78rem;line-height:1.4}
+
+/* Bundle expansion */
+.bundle-expand{
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  padding:6px 8px;
+  margin-top:4px;
+  background:rgba(16,25,48,.8);
+  border:1px solid var(--line);
+  border-radius:6px;
+}
+.bundle-expand.open{display:flex}
+.bundle-skill{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:.8rem;
+  color:var(--muted);
+}
+.bundle-skill img{width:24px;height:24px;border-radius:4px}
+
+/* Notes box */
+.notes-box{
+  color:var(--muted);
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--panel);
+  font-size:.88rem;
+  line-height:1.5;
+  margin-top:12px;
+  white-space:pre-wrap;
+}
+
+/* Section headings */
+.section-heading{
+  color:var(--accent-2);
+  font-size:.78rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin:20px 0 8px;
+}
