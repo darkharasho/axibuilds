@@ -179,9 +179,12 @@ function renderSpecializations(specs) {
   for (var i = 0; i < specs.length; i++) {
     var s = specs[i];
     if (!s) continue;
-    html += '<div class="spec-row">';
+    var eliteClass = s.elite ? " spec-card--elite" : "";
+    var bgStyle = s.background ? "background-image:url(" + escapeAttr(s.background) + ")" : "";
+    html += '<div class="spec-row spec-card' + eliteClass + '" style="' + bgStyle + '">';
+    html += '<div class="spec-card-body">';
     if (s.icon) {
-      html += '<img class="spec-icon" src="' + escapeAttr(s.icon) + '" alt="" loading="lazy" />';
+      html += '<img class="spec-icon spec-emblem" src="' + escapeAttr(s.icon) + '" alt="" loading="lazy" />';
     }
     html += '<div class="spec-info">';
     html += '<span class="spec-name">' + escapeHtml(s.name || "Unknown");
@@ -190,16 +193,17 @@ function renderSpecializations(specs) {
     html += renderTraitGrid(s);
     html += '</div>';
     html += '</div>';
+    html += '</div>';
   }
   return html;
 }
 
 function renderTraitGrid(s) {
-  var html = '<div class="trait-grid">';
+  var html = '<div class="trait-grid"><div class="trait-tiers">';
   var tiers = [1, 2, 3];
   for (var t = 0; t < tiers.length; t++) {
     var tier = tiers[t];
-    if (t > 0) html += '<span class="tier-sep"></span>';
+    html += '<div class="tier-row">';
     // Minor trait
     if (s.minorTraits && s.minorTraits[t]) {
       var mt = s.minorTraits[t];
@@ -219,8 +223,9 @@ function renderTraitGrid(s) {
       html += '</span>';
     }
     html += '</span>';
+    html += '</div>';
   }
-  html += '</div>';
+  html += '</div></div>';
   return html;
 }
 
@@ -285,7 +290,7 @@ function renderSkillSlot(skill, slotType) {
     ? '<img class="skill-icon" src="' + escapeAttr(skill.icon) + '" alt="" loading="lazy" />'
     : '';
   return '<div class="skill-slot" data-slot="' + escapeAttr(slotType || "") + '" data-name="' + escapeAttr(skill.name || "") + '" data-desc="' + escapeAttr(skill.description || "") + '"' + bundleAttr + '>'
-    + icon + '<span>' + escapeHtml(skill.name || "Unknown Skill") + '</span>'
+    + icon + '<span class="skill-label">' + escapeHtml(skill.name || "Unknown Skill") + '</span>'
     + '<div class="bundle-expand"></div>'
     + '</div>';
 }
@@ -355,8 +360,9 @@ function renderEquipment(equip) {
       var wSlot = wset.slots[wj];
       var wName = (equip.weapons && equip.weapons[wSlot]) || "";
       if (!wName) continue;
+      var wLabel = wSlot.replace(/\d+$/, "").replace(/([a-z])([A-Z])/g, "$1 $2").replace(/^aquatic\s*/i, "");
       html += '<div class="eq-weapon-row">';
-      html += '<span class="eq-slot-name">' + escapeHtml(wSlot) + '</span>';
+      html += '<span class="eq-slot-name">' + escapeHtml(wLabel) + '</span>';
       html += '<span>' + escapeHtml(wName) + '</span>';
       // Sigils
       var sigils = (equip.sigils && equip.sigils[wSlot]) || [];
