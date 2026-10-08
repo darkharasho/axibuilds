@@ -1,0 +1,48 @@
+name: AxiForge Viewer Guard
+
+on:
+  workflow_run:
+    workflows: [ "Deploy Pages" ]
+    types: [ completed ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  check:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      stale: ${{ steps.compare.outputs.stale }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: compare
+        name: Compare the served viewer with viewer/
+        run: |
+          if [ -f viewer/site-version ] && ! cmp -s viewer/site-version site/site-version; then
+            echo "stale=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "stale=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy:
+    needs: check
+    if: needs.check.outputs.stale == 'true'
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lay the newest viewer over site/
+        run: cp -a viewer/. site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+      - id: deployment
+        uses: actions/deploy-pages@v4
